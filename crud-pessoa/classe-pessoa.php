@@ -1,15 +1,18 @@
 <?php 
+
 class Pessoa{
     const HOSTNAME = 'localhost';
     const DBNAME = 'crudpdo';
     const USER = 'root';
     const PASSWORD = 1234;
+    
     private $pdo;
+
 
     function __construct()
     {
         try{
-            $this->pdo = new PDO("mysql:dbname=". self::DBNAME . "host=" . self::HOSTNAME, self::USER, self::PASSWORD);
+            $this->pdo = new PDO("mysql:dbname=". self::DBNAME . ";host=" . self::HOSTNAME, self::USER, self::PASSWORD);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $e){
             die('ERROR: ' . $e->getMessage());
@@ -19,6 +22,54 @@ class Pessoa{
         }
     }
 
+    public function buscar_dados(){
+        $cmd = $this->pdo->query("SELECT * FROM PESSOA ORDER BY NOME ASC");
+        $res = array();
+        $res = $cmd->fetchAll(PDO::FETCH_ASSOC);
+        return $res;
+    }
+
+    public function cadastrar_pessoa($array){
+        
+        $this->verificador_de_cadastro(['email' => $array['email'], 'telefone' => $array['telefone']]);
+        
+        $campos = array_keys($array);
+        $valores = array_pad([], count($campos), "?");
+
+        $cmd = $this->pdo->prepare("INSERT INTO PESSOA(". implode(",", $campos) .") VALUES(". implode(",", $valores) .")");
+        
+        
+        try{
+            $cmd->execute(array_values($array));        
+        }catch(PDOException $e){
+            die('ERROR: ' . $e->getMessage());
+        }
+        catch(Exception $e){
+            die('ERROR: ' . $e->getMessage());
+        }
+    }
+
+    public function verificador_de_cadastro($array){
+        $teste = $this->pdo->prepare('SELECT ID FROM PESSOA WHERE EMAIL = :e OR TELEFONE = :t');
+        
+        try{
+            $teste->execute([':e' => $array['email'], ':t' => $array['telefone']]);       
+        }catch(PDOException $e){
+            die('ERROR: ' . $e->getMessage());
+        }
+        catch(Exception $e){
+            die('ERROR: ' . $e->getMessage());
+        }
+
+        $res = $teste->fetch(PDO::FETCH_ASSOC);
+       
+        
+        if($res){
+            echo "Email ou Telefone já existe!";
+            exit;
+        }
+        
+    }
 }
 
 

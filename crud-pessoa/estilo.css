@@ -78,3 +78,8 @@ a{
     background-color: rgba(122, 0, 0, 0.7);
     color: white;
 }
+
+td.banco_vazio{
+    color: rgba(122, 0, 0, 0.7);
+    font-weight: 700;
+}
