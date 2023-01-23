@@ -31,8 +31,12 @@ class Pessoa{
 
     public function cadastrar_pessoa($array){
         
-        $this->verificador_de_cadastro(['email' => $array['email'], 'telefone' => $array['telefone']]);
+        $teste = $this->verificador_de_cadastro(['email' => $array['email'], 'telefone' => $array['telefone']]);
         
+        if(!$teste){
+            return "Email ou Telefone já existe!";
+        }
+
         $campos = array_keys($array);
         $valores = array_pad([], count($campos), "?");
 
@@ -47,6 +51,8 @@ class Pessoa{
         catch(Exception $e){
             die('ERROR: ' . $e->getMessage());
         }
+
+        return "Cadastrado com Sucesso!";
     }
 
     public function verificador_de_cadastro($array){
@@ -65,10 +71,24 @@ class Pessoa{
        
         
         if($res){
-            echo "Email ou Telefone já existe!";
-            exit;
+            return false;
         }
+
+        return true;
         
+    }
+
+    public function excluir_pessoa($id){
+        $cmd = $this->pdo->prepare("DELETE FROM PESSOA WHERE ID = :id");
+        
+        try{
+            $cmd->execute([':id' => $id]);       
+        }catch(PDOException $e){
+            die('ERROR: ' . $e->getMessage());
+        }
+        catch(Exception $e){
+            die('ERROR: ' . $e->getMessage());
+        }
     }
 }
 

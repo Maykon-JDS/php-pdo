@@ -3,9 +3,14 @@
     
     $p = new Pessoa();
 
+    if(isset($_GET['id'])){
+        $p->excluir_pessoa(addslashes($_GET['id']));
+        header("location: index.php");
+    }
+
     if(isset($_POST['status'])){
         if(!empty($_POST['nome']) && !empty($_POST['telefone']) && !empty($_POST['email'])){
-            $p->cadastrar_pessoa(['nome' => addslashes($_POST['nome']), 'telefone' => $_POST['telefone'], 'email' => addslashes($_POST['email'])]);
+            echo $p->cadastrar_pessoa(['nome' => addslashes($_POST['nome']), 'telefone' => $_POST['telefone'], 'email' => addslashes($_POST['email'])]);
         }else{
             echo "Preencha todos os campos";
         }
@@ -50,13 +55,13 @@
             <tbody>
                 <?php 
                 $dados = $p->buscar_dados();
-                if(isset($dados)){
+                if(!$dados == []){
                     foreach ($dados as $dado) {
                         echo "<tr>";
                         echo "<td>{$dado['NOME']}</td>";
                         echo "<td>{$dado['TELEFONE']}</td>";
                         echo "<td>{$dado['EMAIL']}</td>";
-                        echo "<td><a href='#' value='tudo' name='teste' class='editar_btn'>Editar</a><a href='http://' class='excluir_btn'>Excluir</a></td>";
+                        echo "<td><a href='#' value='tudo' name='teste' class='editar_btn'>Editar</a><a href='?id=".$dado['ID']."' class='excluir_btn'>Excluir</a></td>";
                         echo "</tr>";
                     }
                 } else{
