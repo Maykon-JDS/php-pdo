@@ -1,10 +1,13 @@
-*{
+* {
     padding: 0px;
     margin: 0px;
     font-family: arial;
 }
 
-label, input, button.atualizar, button.voltar{
+label,
+input,
+button.atualizar,
+button.voltar {
     display: block;
     line-height: 30px;
     height: 30px;
@@ -13,51 +16,54 @@ label, input, button.atualizar, button.voltar{
     width: 100%;
 }
 
-.form-cadastro{
+.form-cadastro {
     width: 330px;
     background-color: rgba(0, 0, 0, 0.2);
     padding: 20px;
-    margin: 30px auto;
+    margin: 0 auto;
+    margin-top: 4vh;
 }
 
-input[type="submit"], button.atualizar{
+input[type="submit"],
+button.atualizar {
     margin-top: 10px;
     cursor: pointer;
 }
 
-button.atualizar, button.voltar{
+button.atualizar,
+button.voltar {
     line-height: 0;
 }
 
-button.atualizar{
+button.atualizar {
     background-color: lightgreen;
 }
 
-button.voltar{
+button.voltar {
     background-color: lightcoral;
 }
 
-#esquerda{
-width: 35%;
-height: 500px;
-float: left;
+#esquerda {
+    width: 35%;
+    height: fit-content;
+    margin: 0 auto;
 }
 
-#direita{
-width: 65%;
-height: 500px;
-float: right;
+#direita {
+    width: 80%;
+    height: 500px;
+    margin: auto;
 }
 
-table{
+table {
     background: white;
     width: 90%;
     margin: 30px auto;
     border-collapse: collapse;
 }
 
-th{
-    
+th {
+
     text-align: left;
     font-weight: bold;
     color: white;
@@ -65,23 +71,23 @@ th{
     text-transform: uppercase;
 }
 
-tr{
+tr {
     line-height: 30px;
 }
 
-:is(td,th){
+:is(td, th) {
     padding-left: 5px;
     border: 1px solid black;
 }
 
-a{
+a {
     background-color: white;
     padding: 5px;
     margin: 0px 5px;
     text-decoration: none;
 }
 
-.editar_btn{
+.editar_btn {
     padding: 5px;
     line-height: 1;
     margin: 10px 0;
@@ -90,12 +96,12 @@ a{
 }
 
 
-button:has(+ button){
+button:has(+ button) {
     margin-right: 10px !important;
 }
 
 
-.excluir_btn{
+.excluir_btn {
     padding: 5px;
     line-height: 1;
     margin: 10px 0;
@@ -103,7 +109,16 @@ button:has(+ button){
     color: white;
 }
 
-td.banco_vazio{
+td.banco_vazio {
     color: rgba(122, 0, 0, 0.7);
     font-weight: 700;
+}
+
+.mensagem{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    text-align: center;
+
 }

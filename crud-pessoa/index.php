@@ -34,7 +34,6 @@
             ?>
         </form>
     </section>
-    <button type="submit"></button>
     <section id="direita">
         <form action="#" method="post">
             <table>

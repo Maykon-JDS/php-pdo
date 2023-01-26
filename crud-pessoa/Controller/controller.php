@@ -5,9 +5,9 @@ $p = new Pessoa();
 
 if (isset($_POST['atualizar'])) {
     if (!empty($_POST['nome']) && !empty($_POST['telefone']) && !empty($_POST['email'])) {
-        echo $p->atualizar(['id' => addslashes($_POST['atualizar']),'nome' => addslashes($_POST['nome']), 'telefone' =>  addslashes($_POST['telefone']), 'email' => addslashes($_POST['email'])]);
+        echo  "<h2 class='mensagem'>" . $p->atualizar(['id' => addslashes($_POST['atualizar']),'nome' => addslashes($_POST['nome']), 'telefone' =>  addslashes($_POST['telefone']), 'email' => addslashes($_POST['email'])]) . "</h2>";
     } else {
-        echo "Preencha todos os campos";
+        echo "<h2 class='mensagem'>Preencha todos os campos</h2>";
     } 
 }
 
@@ -22,9 +22,9 @@ if (isset($_POST['excluir'])) {
 
 if (isset($_POST['cadastrar'])) {
     if (!empty($_POST['nome']) && !empty($_POST['telefone']) && !empty($_POST['email'])) {
-        echo $p->cadastrar_pessoa(['nome' => addslashes($_POST['nome']), 'telefone' => $_POST['telefone'], 'email' => addslashes($_POST['email'])]);
+        echo "<h2 class='mensagem'>" . $p->cadastrar_pessoa(['nome' => addslashes($_POST['nome']), 'telefone' => $_POST['telefone'], 'email' => addslashes($_POST['email'])]) . "</h2>";
     } else {
-        echo "Preencha todos os campos";
+        echo "<h2 class='mensagem'>Preencha todos os campos</h2>";
     }
 }
 
