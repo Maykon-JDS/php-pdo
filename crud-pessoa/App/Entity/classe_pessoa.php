@@ -1,5 +1,4 @@
 <?php 
-
 class Pessoa{
     const HOSTNAME = 'localhost';
     const DBNAME = 'crudpdo';
@@ -153,10 +152,6 @@ class Pessoa{
         
     }
 }
-
-
-
-
 
 
 ?>

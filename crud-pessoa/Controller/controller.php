@@ -1,5 +1,8 @@
 <?php
-require_once("App/Entity/classe-pessoa.php");
+require_once ("../App/Entity/classe_pessoa.php"); 
+
+echo '<pre>'; print_r($_POST); echo '</pre>'; exit;
+
 
 $p = new Pessoa();
 
@@ -30,3 +33,4 @@ if (isset($_POST['cadastrar'])) {
 
 
 ?>
+
