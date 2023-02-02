@@ -1,36 +1,47 @@
 <?php
-require_once ("../App/Entity/classe_pessoa.php"); 
 
-echo '<pre>'; print_r($_POST); echo '</pre>'; exit;
+require("App/Entity/classe_pessoa.php");
 
-
-$p = new Pessoa();
+$pessoa = new Pessoa();
 
 if (isset($_POST['atualizar'])) {
     if (!empty($_POST['nome']) && !empty($_POST['telefone']) && !empty($_POST['email'])) {
-        echo  "<h2 class='mensagem'>" . $p->atualizar(['id' => addslashes($_POST['atualizar']),'nome' => addslashes($_POST['nome']), 'telefone' =>  addslashes($_POST['telefone']), 'email' => addslashes($_POST['email'])]) . "</h2>";
-    } else {
-        echo "<h2 class='mensagem'>Preencha todos os campos</h2>";
-    } 
-}
-
-if (isset($_POST['editar'])) {
-    $res = $p->editar(addslashes($_POST['editar']));
-}
-
-
-if (isset($_POST['excluir'])) {
-    $p->excluir_pessoa(addslashes($_POST['excluir']));
-}
-
-if (isset($_POST['cadastrar'])) {
-    if (!empty($_POST['nome']) && !empty($_POST['telefone']) && !empty($_POST['email'])) {
-        echo "<h2 class='mensagem'>" . $p->cadastrar_pessoa(['nome' => addslashes($_POST['nome']), 'telefone' => $_POST['telefone'], 'email' => addslashes($_POST['email'])]) . "</h2>";
+        echo  "<h2 class='mensagem'>" .
+            $pessoa->atualizar([
+                'id' => addslashes($_POST['atualizar']),
+                'nome' => addslashes($_POST['nome']),
+                'telefone' =>  addslashes($_POST['telefone']),
+                'email' => addslashes($_POST['email'])
+            ])
+            . "</h2>";
     } else {
         echo "<h2 class='mensagem'>Preencha todos os campos</h2>";
     }
 }
 
 
-?>
+if (isset($_POST['editar'])) {
+    $resposta_da_query = $pessoa->editar(addslashes($_POST['editar']));
+}
 
+
+if (isset($_POST['excluir'])) {
+    $pessoa->excluir_pessoa(addslashes($_POST['excluir']));
+}
+
+
+if (isset($_POST['cadastrar'])) {
+    if (!empty($_POST['nome']) && !empty($_POST['telefone']) && !empty($_POST['email'])) {
+        echo "<h2 class='mensagem'>" .
+            $pessoa->cadastrar_pessoa([
+                'nome' => addslashes($_POST['nome']),
+                'telefone' => $_POST['telefone'],
+                'email' => addslashes($_POST['email'])
+            ])
+            . "</h2>";
+    } else {
+        echo "<h2 class='mensagem'>Preencha todos os campos</h2>";
+    }
+}
+
+?>

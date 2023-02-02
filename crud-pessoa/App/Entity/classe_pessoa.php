@@ -1,4 +1,6 @@
 <?php 
+
+
 class Pessoa{
     const HOSTNAME = 'localhost';
     const DBNAME = 'crudpdo';
@@ -7,7 +9,7 @@ class Pessoa{
     
     private $pdo;
 
-
+    
     function __construct()
     {
         try{
@@ -21,12 +23,6 @@ class Pessoa{
         }
     }
 
-    public function buscar_dados(){
-        $cmd = $this->pdo->query("SELECT * FROM PESSOA ORDER BY NOME ASC");
-        $res = array();
-        $res = $cmd->fetchAll(PDO::FETCH_ASSOC);
-        return $res;
-    }
 
     public function cadastrar_pessoa($array){
         
@@ -39,11 +35,11 @@ class Pessoa{
         $campos = array_keys($array);
         $valores = array_pad([], count($campos), "?");
 
-        $cmd = $this->pdo->prepare("INSERT INTO PESSOA(". implode(",", $campos) .") VALUES(". implode(",", $valores) .")");
+        $query = $this->pdo->prepare("INSERT INTO PESSOA(". implode(",", $campos) .") VALUES(". implode(",", $valores) .")");
         
         
         try{
-            $cmd->execute(array_values($array));        
+            $query->execute(array_values($array));        
         }catch(PDOException $e){
             die('ERROR: ' . $e->getMessage());
         }
@@ -53,8 +49,6 @@ class Pessoa{
 
         return "Cadastrado com Sucesso!";
     }
-
-    
 
     public function verificador_de_cadastro($array){
         
@@ -69,22 +63,22 @@ class Pessoa{
             die('ERROR: ' . $e->getMessage());
         }
 
-        $res = $teste->fetch(PDO::FETCH_ASSOC);
+        $resposta_da_query = $teste->fetch(PDO::FETCH_ASSOC);
        
         
-        if($res){
+        if($resposta_da_query){
             return false;
         }
 
         return true;
-        
     }
 
+
     public function excluir_pessoa($id){
-        $cmd = $this->pdo->prepare("DELETE FROM PESSOA WHERE ID = :id");
+        $query = $this->pdo->prepare("DELETE FROM PESSOA WHERE ID = :id");
         
         try{
-            $cmd->execute([':id' => $id]);       
+            $query->execute([':id' => $id]);       
         }catch(PDOException $e){
             die('ERROR: ' . $e->getMessage());
         }
@@ -93,14 +87,15 @@ class Pessoa{
         }
     }
 
+
     public function editar($id){
-        $cmd = $this->pdo->prepare('SELECT id,nome,telefone,email FROM PESSOA WHERE ID = :id');
-        $cmd->execute([':id' => $id]);
+        $query = $this->pdo->prepare('SELECT id,nome,telefone,email FROM PESSOA WHERE ID = :id');
+        $query->execute([':id' => $id]);
 
-        $res = $cmd->fetch(PDO::FETCH_ASSOC);
-        return $res;        
-
+        $resposta_da_query = $query->fetch(PDO::FETCH_ASSOC);
+        return $resposta_da_query;        
     }
+
 
     public function atualizar($array){
         
@@ -110,14 +105,11 @@ class Pessoa{
             return "Email ou Telefone já existe!";
         }
 
-        $campos = array_keys($array);
-        $valores = array_pad([], count($campos), "?");
-
-        $cmd = $this->pdo->prepare("UPDATE PESSOA SET NOME = :n, TELEFONE = :t, EMAIL = :e WHERE ID = :id");
+        $query = $this->pdo->prepare("UPDATE PESSOA SET NOME = :n, TELEFONE = :t, EMAIL = :e WHERE ID = :id");
         
         
         try{
-            $cmd->execute([':n' => $array['nome'],':t' => $array['telefone'],':e' => $array['email'],':id' => $array['id']]);        
+            $query->execute([':n' => $array['nome'],':t' => $array['telefone'],':e' => $array['email'],':id' => $array['id']]);        
         }catch(PDOException $e){
             die('ERROR: ' . $e->getMessage());
         }
@@ -141,15 +133,22 @@ class Pessoa{
             die('ERROR: ' . $e->getMessage());
         }
 
-        $res = $teste->fetch(PDO::FETCH_ASSOC);
+        $resposta_da_query = $teste->fetch(PDO::FETCH_ASSOC);
        
         
-        if($res){
+        if($resposta_da_query){
             return false;
         }
 
         return true;
-        
+    }
+
+
+    public function buscar_dados(){
+        $query = $this->pdo->query("SELECT * FROM PESSOA ORDER BY NOME ASC");
+        $resposta_da_query = array();
+        $resposta_da_query = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $resposta_da_query;
     }
 }
 
