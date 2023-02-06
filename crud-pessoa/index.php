@@ -1,6 +1,5 @@
 <?php 
-    include("Controller/controller.php");
-
+    include("App/Controller/controller.php");
     
     require_once("Include/header.php");
     require_once("Include/form.php");
