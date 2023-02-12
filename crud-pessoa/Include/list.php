@@ -11,17 +11,19 @@
             <tbody>
                 <?php
                 $dados = $pessoa->buscar_dados();
+                
+                
                 if (!$dados == []) {
                     foreach ($dados as $dado) {
                         echo "<tr>";
-                        echo "<td>{$dado['NOME']}</td>";
-                        echo "<td>{$dado['TELEFONE']}</td>";
-                        echo "<td>{$dado['EMAIL']}</td>";
+                        echo "<td>{$dado['nome']}</td>";
+                        echo "<td>{$dado['telefone']}</td>";
+                        echo "<td>{$dado['email']}</td>";
                         echo "<td class='coluna-botoes'>
-                                <button type='submit' value='" . $dado['ID'] . "' name='editar' class='editar_btn'>
+                                <button type='submit' value='" . $dado['id'] . "' name='editar' class='editar_btn'>
                                     Editar
                                 </button>
-                                <button type='submit' value='" . $dado['ID'] . "' name='excluir' class='excluir_btn'>
+                                <button type='submit' value='" . $dado['id'] . "' name='excluir' class='excluir_btn'>
                                     Excluir
                                 </button>
                             </td>";

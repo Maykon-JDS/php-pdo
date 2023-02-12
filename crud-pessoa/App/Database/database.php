@@ -52,8 +52,8 @@ class DataBase{
         $campos = array_keys($array);
         $valores = array_pad([], count($campos), "?");
 
-        $query = "INSERT INTO " . $this->tabela . "(". implode(",", $campos) .") VALUES(". implode(",", $valores) .")";
-        
+        $query = "INSERT INTO " . $this->tabela . " (". implode(",", $campos) .") VALUES(". implode(",", $valores) .")";        
+
         $this->executar_query($query,array_values($array));
 
         return "Cadastrado com Sucesso!";
@@ -61,7 +61,7 @@ class DataBase{
 
     private function verificador_de_cadastro($array){
         
-        $query = 'SELECT ID FROM PESSOA WHERE EMAIL = :e OR TELEFONE = :t';
+        $query = "SELECT ID FROM " . $this->tabela . " WHERE EMAIL = :e OR TELEFONE = :t";
         
         $resposta_da_query = $this->executar_query($query, [':e' => $array['email'], ':t' => $array['telefone']]);
 
@@ -84,7 +84,7 @@ class DataBase{
 
 
     public function buscar_dados_para_editar($id){
-        $query = 'SELECT id,nome,telefone,email FROM PESSOA WHERE ID = :id';
+        $query = "SELECT id,nome,telefone,email FROM " . $this->tabela . " WHERE ID = :id";
 
         $resposta_da_query = $this->executar_query($query, [':id' => $id]);
         $resposta_da_query_fetch = $resposta_da_query->fetch(PDO::FETCH_ASSOC);
@@ -100,7 +100,7 @@ class DataBase{
             return "Email ou Telefone já existe!";
         }
 
-        $query = "UPDATE PESSOA SET NOME = :n, TELEFONE = :t, EMAIL = :e WHERE ID = :id";
+        $query = "UPDATE " . $this->tabela . " SET NOME = :n, TELEFONE = :t, EMAIL = :e WHERE ID = :id";
         
         $this->executar_query($query, [':n' => $array['nome'], ':t' => $array['telefone'], ':e' => $array['email'], ':id' => $array['id']]);
 
@@ -110,7 +110,7 @@ class DataBase{
 
     public function verificador_de_atualizacao($array){
         
-        $query = 'SELECT ID FROM PESSOA WHERE (EMAIL = :e OR TELEFONE = :t) AND ID != :id';
+        $query = "SELECT ID FROM " . $this->tabela . " WHERE (EMAIL = :e OR TELEFONE = :t) AND ID != :id";
         
         $resposta_da_query = $this->executar_query($query, [':e' => $array['email'], ':t' => $array['telefone'], ':id' => $array['id'] ]);
 
@@ -125,9 +125,11 @@ class DataBase{
 
 
     public function buscar_dados(){
-        $query = "SELECT * FROM PESSOA ORDER BY NOME ASC";
+        $query = "SELECT * FROM " . $this->tabela . " ORDER BY NOME ASC";
+        
         $resultado = $this->executar_query($query);
         $resultado_fetchAll = $resultado->fetchAll(PDO::FETCH_ASSOC);
+        
         return $resultado_fetchAll;
     }
     

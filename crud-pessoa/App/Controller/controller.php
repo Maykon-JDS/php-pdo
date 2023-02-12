@@ -16,7 +16,7 @@ if (isset($_POST['atualizar'])) {
                 'telefone' =>  addslashes($_POST['telefone']),
                 'email' => addslashes($_POST['email'])
             ]);
-            echo $pessoa->atualizar()
+            echo $pessoa->atualizar_pessoa()
             . "</h2>";
     } else {
         echo "<h2 class='mensagem'>Preencha todos os campos</h2>";
@@ -25,7 +25,7 @@ if (isset($_POST['atualizar'])) {
 
 
 if (isset($_POST['editar'])) {
-    $resposta_da_query = $pessoa->editar(addslashes($_POST['editar']));
+    $resposta_da_query = $pessoa->editar_pessoa(addslashes($_POST['editar']));
 }
 
 

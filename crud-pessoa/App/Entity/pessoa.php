@@ -43,20 +43,20 @@ class Pessoa{
     }
 
 
-    public function editar($id){
+    public function editar_pessoa($id){
         $resultado = $this->database->buscar_dados_para_editar($id);
         return $resultado;
     }
     
 
-    public function atualizar(){
+    public function atualizar_pessoa(){
         $resultado = $this->database->atualizar_no_banco(["id" => $this->id,"nome" => $this->nome, "telefone" => $this->telefone, "email" => $this->email]);
         return $resultado;
     }
 
 
     public function buscar_dados(){
-        $resultado = $this->database->buscar_dados(); 
+        $resultado = $this->database->buscar_dados();         
         return $resultado;
     }    
 }
